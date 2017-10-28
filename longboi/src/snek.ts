@@ -3,19 +3,21 @@ import { Board } from "./board"
 enum Direction { North, East, South, West }
 
 export class Snek {
-    segmentPositions: {x: number, y: number}[] = []
+    positions: {x: number, y: number}[] = []
     headIndex = 0
     headDirection: Direction
     key: number
     isPlaying: boolean = false
+    died: boolean = false
+    initialLength = 0
+    initialX = 0
+    initialY = 0
 
     constructor(x: number, y: number, length: number) {
-        this.segmentPositions = new Array(length)
-        for (let i = 0; i < length; ++i) {
-            this.segmentPositions[i] = {x: x - i, y: y}
-        }
-        this.headIndex = 0
-        this.headDirection = Direction.East
+        this.initialLength = length
+        this.initialX = x
+        this.initialY = y
+        this.reset()
 
         // Listen to keyboard events
         window.addEventListener("keyup", (e) => {
@@ -23,8 +25,18 @@ export class Snek {
         })
     }
 
+    reset() {
+        this.died = false
+        this.positions = new Array(this.initialLength)
+        for (let i = 0; i < this.initialLength; ++i) {
+            this.positions[i] = {x: this.initialX - i, y: this.initialY}
+        }
+        this.headIndex = 0
+        this.headDirection = Direction.East
+    }
+
     draw(board: Board) {
-        this.segmentPositions.forEach((v) => {
+        this.positions.forEach((v) => {
             board.drawSquare(v.x, v.y, "red")
         })
     }
@@ -54,34 +66,53 @@ export class Snek {
 
             switch (this.headDirection) {
                 case Direction.North:
-                    this.segmentPositions[newHeadIndex].x
-                        = this.segmentPositions[this.headIndex].x
-                    this.segmentPositions[newHeadIndex].y
-                        = this.segmentPositions[this.headIndex].y - 1
+                    this.positions[newHeadIndex].x
+                        = this.positions[this.headIndex].x
+                    this.positions[newHeadIndex].y
+                        = this.positions[this.headIndex].y - 1
                     break
                 case Direction.East:
-                    this.segmentPositions[newHeadIndex].x
-                        = this.segmentPositions[this.headIndex].x + 1
-                    this.segmentPositions[newHeadIndex].y
-                        = this.segmentPositions[this.headIndex].y
+                    this.positions[newHeadIndex].x
+                        = this.positions[this.headIndex].x + 1
+                    this.positions[newHeadIndex].y
+                        = this.positions[this.headIndex].y
                     break
                 case Direction.South:
-                    this.segmentPositions[newHeadIndex].x
-                        = this.segmentPositions[this.headIndex].x
-                    this.segmentPositions[newHeadIndex].y
-                        = this.segmentPositions[this.headIndex].y + 1
+                    this.positions[newHeadIndex].x
+                        = this.positions[this.headIndex].x
+                    this.positions[newHeadIndex].y
+                        = this.positions[this.headIndex].y + 1
                     break
                 case Direction.West:
-                    this.segmentPositions[newHeadIndex].x
-                        = this.segmentPositions[this.headIndex].x - 1
-                    this.segmentPositions[newHeadIndex].y
-                        = this.segmentPositions[this.headIndex].y
+                    this.positions[newHeadIndex].x
+                        = this.positions[this.headIndex].x - 1
+                    this.positions[newHeadIndex].y
+                        = this.positions[this.headIndex].y
                     break
             }
             this.headIndex = newHeadIndex
         } else {
-            board.drawOverlayText("Press any key to play  L O N G B O I")
-            this.isPlaying = this.key != undefined
+            if (this.died) {
+                board.drawOverlayText("You died; "
+                                      + "Press any key to play  L O N G B O I")
+            } else {
+                board.drawOverlayText("Press any key to play  L O N G B O I")
+            }
+            if (this.key != undefined) {
+                this.reset()
+                this.isPlaying = true
+            }
+        }
+
+        // Check for death
+        const offGrid = this.positions[this.headIndex].x > board.getWidth()-1
+                        || this.positions[this.headIndex].x < 0
+                        || this.positions[this.headIndex].y > board.getWidth()-1
+                        || this.positions[this.headIndex].y < 0
+        
+        if (offGrid) {
+            this.isPlaying = false
+            this.died = true
         }
 
         // Clear keyboard input
@@ -89,6 +120,6 @@ export class Snek {
     }
 
     getLength() {
-        return this.segmentPositions.length
+        return this.positions.length
     }
 }
