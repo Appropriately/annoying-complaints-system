@@ -8,11 +8,11 @@ var generatedPWrd = new Array(3);
 var pwrdSuggestions, adj, noun, numSeq;
 
 for(i = 0; i < generatedPWrd.length; i++) {
-    adj = adjectives[Math.round(Math.random() * (adjectives.length - 1))];
-    noun = nouns[Math.round(Math.random() * (nouns.length - 1))];
-    numSeq = numberSeq[Math.round(Math.random() * (numberSeq.length - 1))];
+  adj = adjectives[Math.round(Math.random() * (adjectives.length - 1))];
+  noun = nouns[Math.round(Math.random() * (nouns.length - 1))];
+  numSeq = numberSeq[Math.round(Math.random() * (numberSeq.length - 1))];
     
-    generatedPWrd[i] = adj + noun + numSeq;
+  generatedPWrd[i] = adj + noun + numSeq;
 }
 
 pwrdSuggestions = "Here are some passsword suggestions: " + generatedPWrd[0] + ", " + generatedPWrd[1] + ", " + generatedPWrd[2] + ".";
