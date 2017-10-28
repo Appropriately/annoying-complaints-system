@@ -23,11 +23,13 @@ def authenticateUser():
     password = request.form['password']
     return userList.authenticateUser(username, password)
 
-@app.route("/api/postComplaint")
+@app.route("/api/postComplaint", methods=['POST'])
 def postComplaint():
+    complaint = request.form['complaint']
+
     return "Complaint"
 
-@app.route("/api/addToQueue", methods=['POST'])
+@app.route("/api/addToQueue")
 def addToQueue():
     if(not session.has_key('QueueID')):
         queueID = random.randint(0, 1000000)
@@ -46,7 +48,7 @@ def getQueuePosition():
     else:
         return -1
 
-@app.route("api/leaveQueue")
+@app.route("/api/leaveQueue")
 def leaveQueue():
     session.pop('QueueID', None)
     return "Left Queue"
