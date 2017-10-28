@@ -51,9 +51,8 @@ export class Board {
 
     drawSquare(x: number, y: number, fill: string) {
         this.ctx.fillStyle = fill
-        this.ctx.fillRect(this.leftRightMargin + x * this.tileSize,
-                          this.topBottomMargin + y * this.tileSize,
-                          this.leftRightMargin + (x + 1) * this.tileSize,
-                          this.topBottomMargin + (y + 1) * this.tileSize)
+        this.ctx.fillRect((this.leftRightMargin + x) * this.tileSize,
+                          (this.topBottomMargin + y) * this.tileSize,
+                          this.tileSize, this.tileSize)
     }
 }
