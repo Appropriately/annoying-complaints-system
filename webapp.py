@@ -26,8 +26,10 @@ def authenticateUser():
     username = request.json['username']
     password = request.json['password']
     if(userList.authenticateUser(username, password)):
+        print("authenticated", file=sys.stderr)
         return "authenticated"
     else:
+        print("not authenticated", file=sys.stderr)
         return "not_authenticated"
 
 @app.route("/api/postComplaint", methods=['POST'])
