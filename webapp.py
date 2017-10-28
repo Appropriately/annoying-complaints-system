@@ -15,7 +15,7 @@ def postComplaint():
 def addToQueue():
     return "Added to the Queue"
 
-@app.route("api/getQueuePosition")
+@app.route("/api/getQueuePosition")
 def getQueuePosition():
     return 0
 
