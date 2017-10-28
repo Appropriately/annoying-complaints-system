@@ -1,4 +1,7 @@
 from textblob import TextBlob
 
-def makeComplaintPositive(originalComplaint):
+def makePositive(originalComplaint):
     return ""
+
+def correctSpelling(originalComplaint):
+    textBlob = TextBlob(originalComplaint)

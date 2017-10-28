@@ -1,4 +1,7 @@
 import random
+
+import sys
+
 import textAnalysis
 from flask import Flask, send_file, session, request, template_rendered, render_template
 from models import User, UserList, QueueList
@@ -20,14 +23,17 @@ def registerUser():
 @app.route("/api/authenticateUser", methods=['POST'])
 def authenticateUser():
     userList = UserList()
-    username = request.form['username']
-    password = request.form['password']
-    return userList.authenticateUser(username, password)
+    username = request.json['username']
+    password = request.json['password']
+    if(userList.authenticateUser(username, password)):
+        return "authenticated"
+    else:
+        return "not_authenticated"
 
 @app.route("/api/postComplaint", methods=['POST'])
 def postComplaint():
     complaint = request.form['complaint']
-    complaint = textAnalysis.makeComplaintPositive(complaint)
+    complaint = textAnalysis.makePositive(complaint)
     return complaint
 
 @app.route("/api/addToQueue")
