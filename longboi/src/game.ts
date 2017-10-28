@@ -4,7 +4,7 @@ import { Board } from "./board"
 
 export namespace game {
     // Magic constants
-    const updateFrequency = 16
+    const updateFrequency = 100
     const gridHeight = 20
     const gridWidth = 20
 
@@ -16,7 +16,7 @@ export namespace game {
 
     export function run() {
         start()
-        setInterval(() => { draw(); update() }, 16)
+        setInterval(() => { draw(); update() }, updateFrequency)
     }
 
     function start() {

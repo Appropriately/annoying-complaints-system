@@ -3,87 +3,92 @@ import { Board } from "./board"
 enum Direction { North, East, South, West }
 
 export class Snek {
-    segmentDirections: Direction[] = []
+    segmentPositions: {x: number, y: number}[] = []
     headIndex = 0
-    headPosition = { x: 0, y: 0 }
-    keyPressed: number
+    headDirection: Direction
+    key: number
+    isPlaying: boolean = false
 
     constructor(x: number, y: number, length: number) {
-        this.segmentDirections = new Array(length)
+        this.segmentPositions = new Array(length)
         for (let i = 0; i < length; ++i) {
-            this.segmentDirections[i] = Direction.West
+            this.segmentPositions[i] = {x: x - i, y: y}
         }
         this.headIndex = 0
-        this.headPosition = {x: x, y: y}
+        this.headDirection = Direction.East
 
         // Listen to keyboard events
         window.addEventListener("keyup", (e) => {
-            this.keyPressed = e.keyCode
+            this.key = e.keyCode
         })
     }
 
     draw(board: Board) {
-        let curX = this.headPosition.x
-        let curY = this.headPosition.y
-        for (let i = 0; i < this.getLength(); ++i) {
-            board.drawSquare(curX, curY, "red") // Hardcode it for the demo lmao
-            switch (this.segmentDirections[(this.headIndex + i)
-                                           % this.getLength()]) {
-                case Direction.North:
-                    --curY
-                    break
-                case Direction.East:
-                    ++curX
-                    break
-                case Direction.South:
-                    ++curY
-                    break
-                case Direction.West:
-                    --curX
-                    break
-            }
-        }
+        this.segmentPositions.forEach((v) => {
+            board.drawSquare(v.x, v.y, "red")
+        })
     }
 
     update(board: Board) {
-        let dir: Direction = this.segmentDirections[this.headIndex]
-        this.headIndex = (this.headIndex + 1) % this.getLength()
-        switch (this.keyPressed) {
-            case 38: // Up arrow
-                dir = Direction.South
-                break
-            case 39: // Right arrow
-                dir = Direction.West
-                break
-            case 40: // Down arrow
-                dir = Direction.North
-                break
-            case 37: // Left arrow
-                dir = Direction.East
-                break
-        }
-        this.segmentDirections[this.headIndex] = dir
+        if (this.isPlaying) {
+            let newHeadIndex = this.headIndex - 1 == -1 ? this.getLength() - 1
+                                                        : this.headIndex - 1
+            switch (this.key) {
+                case 38: // Up arrow
+                    if (this.headDirection != Direction.South)
+                        this.headDirection = Direction.North
+                    break
+                case 39: // Right arrow
+                    if (this.headDirection != Direction.West)
+                        this.headDirection = Direction.East
+                    break
+                case 40: // Down arrow
+                    if (this.headDirection != Direction.North)
+                        this.headDirection = Direction.South
+                    break
+                case 37: // Left arrow
+                    if (this.headDirection != Direction.East)
+                        this.headDirection = Direction.West
+                    break
+            }
 
-        switch (dir) {
-            case Direction.North:
-                ++this.headPosition.y
-                break
-            case Direction.East:
-                --this.headPosition.x
-                break
-            case Direction.South:
-                --this.headPosition.y
-                break
-            case Direction.West:
-                ++this.headPosition.x
-                break
+            switch (this.headDirection) {
+                case Direction.North:
+                    this.segmentPositions[newHeadIndex].x
+                        = this.segmentPositions[this.headIndex].x
+                    this.segmentPositions[newHeadIndex].y
+                        = this.segmentPositions[this.headIndex].y - 1
+                    break
+                case Direction.East:
+                    this.segmentPositions[newHeadIndex].x
+                        = this.segmentPositions[this.headIndex].x + 1
+                    this.segmentPositions[newHeadIndex].y
+                        = this.segmentPositions[this.headIndex].y
+                    break
+                case Direction.South:
+                    this.segmentPositions[newHeadIndex].x
+                        = this.segmentPositions[this.headIndex].x
+                    this.segmentPositions[newHeadIndex].y
+                        = this.segmentPositions[this.headIndex].y + 1
+                    break
+                case Direction.West:
+                    this.segmentPositions[newHeadIndex].x
+                        = this.segmentPositions[this.headIndex].x - 1
+                    this.segmentPositions[newHeadIndex].y
+                        = this.segmentPositions[this.headIndex].y
+                    break
+            }
+            this.headIndex = newHeadIndex
+        } else {
+            board.drawOverlayText("Press any key to play  L O N G B O I")
+            this.isPlaying = this.key != undefined
         }
 
         // Clear keyboard input
-        this.keyPressed = undefined
+        this.key = undefined
     }
 
     getLength() {
-        return this.segmentDirections.length
+        return this.segmentPositions.length
     }
 }

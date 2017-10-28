@@ -55,4 +55,11 @@ export class Board {
                           (this.topBottomMargin + y) * this.tileSize,
                           this.tileSize, this.tileSize)
     }
+
+    drawOverlayText(text: string) {
+        this.ctx.fillStyle = "white"
+        this.ctx.fillText(text, this.leftRightMargin,
+                          this.canvas.height / 2 - this.topBottomMargin,
+                          this.canvas.width - 2 * this.leftRightMargin)
+    }
 }
