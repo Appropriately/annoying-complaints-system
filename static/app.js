@@ -1,5 +1,11 @@
-  var app = angular.module('Complaints', []);
+  var app = angular.module('Complaints', [])
+  .controller('MainCtrl', ['$scope', function ($scope) {
+        $scope.currentView = "introduction";
+        $scope.firstName = ""; $scope.lastName = "";
+        $scope.email = ""; $scope.dob = "";
+        $scope.complaint = "";
 
-  app.controller('MainCtrl', ['$scope', '$log', function ($scope, $log) {
-        $scope.currentView = 0;
+        $scope.navigate = function(page) {
+          $scope.currentView = page;
+        }; // navigate
   }]);
