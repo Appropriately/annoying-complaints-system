@@ -1,11 +1,23 @@
-from flask import Flask, render_template
+from flask import Flask, send_file
 
 app = Flask(__name__)
 
 
 @app.route("/")
 def index():
-    return render_template('index.html')
+    return send_file("templates/index.html")
 
-if __name__ == '__main__':
-    app.run()
+@app.route("/api/postComplaint")
+def postComplaint():
+    return "Complaint"
+
+@app.route("/api/addToQueue", methods=['POST'])
+def addToQueue():
+    return "Added to the Queue"
+
+@app.route("api/getQueuePosition")
+def getQueuePosition():
+    return 0
+
+if __name__ == "__main__":
+    app.run(host='0.0.0.0')
