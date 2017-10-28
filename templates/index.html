@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="Complaints">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Complaints</title>
+
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+  </head>
+
+  <body ng-controller="MainCtrl">
+    <main>
+      <div class="box">
+        <div ng-include="section1.html" ng-show="currentView===0"></div>
+        <div ng-include="section2.html" ng-show="currentView===1"></div>
+        <div ng-include="section3.html" ng-show="currentView===2"></div>
+      </div>
+    </main>
+
+
+    <!-- ====== SCRIPTS GO BELOW HERE ===================================== -->
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="{{ url_for('static', filename='app.js') }}"></script>
+  </body>
+</html>
