@@ -1,0 +1,28 @@
+{
+  "name": "longboi",
+  "version": "0.0.1",
+  "description": "Definitely not a snake clone",
+  "main": "gulpfile.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "game",
+    "snake",
+    "clone"
+  ],
+  "author": "Adam Cowdy <cowdyadam@gmail.com>",
+  "license": "ISC",
+  "dependencies": {
+    "browserify": "^14.5.0",
+    "gulp": "^3.9.1",
+    "gulp-typescript": "^3.2.3",
+    "tsc": "^1.20150623.0",
+    "tsify": "^3.0.3",
+    "typescript": "^2.5.3",
+    "vinyl-source-stream": "^1.1.0"
+  }
+}
