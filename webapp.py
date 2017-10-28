@@ -1,5 +1,5 @@
 import random
-from flask import Flask, send_file, session, request, template_rendered
+from flask import Flask, send_file, session, request, template_rendered, render_template
 from models import User, UserList, QueueList
 
 app = Flask(__name__)
@@ -7,7 +7,7 @@ app = Flask(__name__)
 
 @app.route("/")
 def index():
-    return template_rendered("index.html")
+    return render_template("index.html")
 
 app.route("/api/registerUser", methods=['POST'])
 def registerUser():
