@@ -1,4 +1,5 @@
 import random
+import textAnalysis
 from flask import Flask, send_file, session, request, template_rendered, render_template
 from models import User, UserList, QueueList
 
@@ -9,14 +10,14 @@ app = Flask(__name__)
 def index():
     return render_template("index.html")
 
-app.route("/api/registerUser", methods=['POST'])
+@app.route("/api/registerUser", methods=['POST'])
 def registerUser():
     newUser = User(request.form['username'], request.form['password'], request.form['email'])
     userList = UserList()
     userList.addUser(newUser)
     return "User added"
 
-app.route("/api/authenticateUser", methods=['POST'])
+@app.route("/api/authenticateUser", methods=['POST'])
 def authenticateUser():
     userList = UserList()
     username = request.form['username']
@@ -26,8 +27,8 @@ def authenticateUser():
 @app.route("/api/postComplaint", methods=['POST'])
 def postComplaint():
     complaint = request.form['complaint']
-
-    return "Complaint"
+    complaint = textAnalysis.makeComplaintPositive(complaint)
+    return complaint
 
 @app.route("/api/addToQueue")
 def addToQueue():
