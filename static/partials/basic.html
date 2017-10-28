@@ -1,0 +1,12 @@
+<h2>Basic information</h2>
+<h4>We just need some basic information from you</h4>
+<hr>
+<form name="form">
+  <p>First Name: <input type="text" ng-model="$parent.firstName" ng-required="true" required></p>
+  <p>Last Name: <input type="text" ng-model="$parent.lastName" ng-required="true" required></p>
+  <p>Email Address: <input type="email" ng-model="$parent.email" ng-required="true" required></p>
+  <br>
+  <div class="navigation">
+    <button ng-click="form.$valid && navigate('detail')">Next</button>
+  </div>
+</form>

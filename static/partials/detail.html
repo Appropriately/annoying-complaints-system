@@ -1,0 +1,12 @@
+<h2>Additional information</h2>
+<h4>To help us properly process your complaint, </h4>
+<hr>
+<form name="form2">
+  <p>Last Name:
+    <input type="date" ng-model="$parent.dob" ng-required="true" required>
+  </p>
+  <br>
+  <div class="navigation">
+    <button ng-click="form2.$valid && navigate('complaint')">Next</button>
+  </div>
+</form>

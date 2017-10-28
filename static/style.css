@@ -1,7 +1,8 @@
 :root {
   --background: #222222;
-  --foreground: #929499;
+  --foreground: #8E9EAF;
   --text-one: #7E4E60;
+  --shadow: #929499;
 }
 
 html, body {
@@ -16,20 +17,50 @@ body {
   text-align: center;
 }
 
-h1 {
+h1, h2, h3 {
   color: var(--text-one);
   font-weight: bolder;
+}
+
+hr {
+  border-color: var(--text-one);
+  margin: 50px 10px;
+}
+
+button {
+  border: none;
+  text-decoration: none;
+  background: var(--text-one);
+  color: white;
+  padding: 10px;
+  font-size: 15px;
+  box-shadow: 1px 1px 2px var(--shadow);
 }
 
 .box {
   background: var(--foreground);
   margin: 30px auto;
   border-radius: 10px;
-  height:600px;
+  min-height:600px;
   width:95%;
   max-width: 720px;
+  box-shadow: 2px 2px 4px var(--shadow);
+  position: relative;
 }
 
 .box div {
   padding: 40px;
+}
+
+.navigation {
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  position: absolute;
+  bottom: 20px;
+}
+
+#complaint {
+  width: 80%;
+  height: 200px;
 }
