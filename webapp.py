@@ -52,9 +52,14 @@ def authenticateUser():
 def postComplaint():
     complaint = request.json['complaint']
     username = request.json['username']
-    complaint = textAnalysis.makePositive(complaint)
     complaintList = ComplaintList()
     complaintList.addComplaint(username, complaint)
+    return "Successfully_stored"
+
+@app.route("/api/getPositiveComplaint", methods=['POST'])
+def getPositiveComplaint():
+    complaint = request.json['complaint']
+    complaint = textAnalysis.makePositive(complaint)
     return complaint
 
 @app.route("/api/postEvaluation", methods=['POST'])
