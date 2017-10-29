@@ -28,7 +28,7 @@
         }
       }).success(function (data) {
         $scope.complaint = data;
-        $scope.navigate('finished');
+        $scope.navigate('longboi');
       });
     }; // postComplaint
 
