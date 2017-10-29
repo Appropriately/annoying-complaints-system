@@ -4,9 +4,9 @@ import { Board } from "./board"
 
 export namespace game {
     // Magic constants
-    const updateFrequency = 100
-    const gridHeight = 20
-    const gridWidth = 20
+    const updateDelay = 150
+    const gridHeight = 10
+    const gridWidth = 10
 
     const canvas = <HTMLCanvasElement> document.getElementById("longboi-canvas")
     const context = canvas.getContext("2d")
@@ -16,7 +16,7 @@ export namespace game {
 
     export function run() {
         start()
-        setInterval(() => { draw(); update() }, updateFrequency)
+        setInterval(() => { draw(); update() }, updateDelay)
     }
 
     function start() {

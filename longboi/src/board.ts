@@ -2,7 +2,7 @@ import { Entity } from "./entity"
 import { Food } from "./food"
 
 export class Board {
-    stageColor = "Black"
+    stageColor = "#282C34"
 
     grid: boolean[][] // Is square occupied?
     ctx: CanvasRenderingContext2D
@@ -90,8 +90,8 @@ export class Board {
 
     drawOverlayText(text: string) {
         this.ctx.fillStyle = "white"
-        this.ctx.fillText(text, this.leftRightMargin,
-                          this.canvas.height / 2 - this.topBottomMargin,
-                          this.canvas.width - 2 * this.leftRightMargin)
+        this.ctx.font = "18px Arial"
+        this.ctx.textAlign = "center"
+        this.ctx.fillText(text, this.canvas.height / 2, this.canvas.width / 2)
     }
 }
