@@ -1,14 +1,14 @@
 from textblob import TextBlob
-from nltk.corpus import wordnet as wn, wordnet
+from nltk.corpus import wordnet
 
 def makePositive(originalComplaint):
     global wordCount
     global adjectiveWordCount
-    global nounWordCount
+    global verbWordCount
     global wordChanges      # technically bad words detected
 
     adjectiveWordCount = 0
-    nounWordCount = 0
+    verbWordCount = 0
     wordChanges=0
 
     textBlob = TextBlob(originalComplaint)
@@ -25,7 +25,7 @@ def makePositive(originalComplaint):
             adjectiveWordCount += 1
 
         if(textBlob.tags[index][1] in verbTags):
-            nounWordCount += 1
+            verbWordCount += 1
 
         if(textBlob.tags[index][1] in acceptedTags):
             wordBlob = TextBlob(textBlob.words[index])
@@ -65,7 +65,7 @@ def makeUserProfile(firstname, surname):
     if (adjectiveWordCount > 1):
         profile['Smart Aleck'] = "You heard. "
 
-    if (nounWordCount > 1):
+    if (verbWordCount > 1):
         profile['Introvert'] = "Yeah you should probably get out more... Stop writing complaints whilst you're at it. "
 
     if (wordCount > 30):
