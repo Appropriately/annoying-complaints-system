@@ -53,6 +53,15 @@ def postComplaint():
     complaintList.addComplaint(username, complaint)
     return complaint
 
+@app.route("/api/postEvaluation", methods=['POST'])
+def postEvaluation():
+    complaint = request.json['complaint']
+    firstname = request.json['firstname']
+    surname = request.json['surname']
+    textAnalysis.makePositive(complaint)
+    evaluation = textAnalysis.makeUserProfile(firstname, surname)
+    return evaluation
+
 @app.route("/api/getComplaints")
 def getComplaints():
     complaintList = ComplaintList()

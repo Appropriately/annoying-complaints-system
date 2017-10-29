@@ -27,6 +27,20 @@
       });
     }; // postComplaint
 
+    $scope.postEvaluation = function() {
+      $http({
+        method: "POST",
+        url: "/api/postEvaluation",
+        data: {
+          complaint: $scope.complaint, 
+          firstname: $scope.firstName,
+          surname: $scope.lastName
+        }
+      }).success(function (data) {
+        $scope.navigate('finished');
+      });
+    }
+
     $scope.accountCreate = function(username,password,email) {
       $http({
         method: "POST",

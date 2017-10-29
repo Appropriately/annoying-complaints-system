@@ -45,34 +45,38 @@ def getAntonym(word):
 def correctSpelling(originalComplaint):
     textBlob = TextBlob(originalComplaint)
 
-def makeUserProfile(userSurname):
+def makeUserProfile(firstname, surname):
     # return dictionary of user profiling summary
     profile = {"Moany Bitch":"Moans way too much, could do with changing that"}
-    userSurname = "Tudor"
+    
+    if (len(firstname) > 7 ):
+        profile['pretentious'] = "With a name like that.... You've got to be pretentious. "
 
     surnameFile = open('oldEnglishSurnames.txt', 'r')
     oldEngSurnames = []
     for line in surnameFile:
         oldEngSurnames.append(line.replace("\r\n", ""));
     
-    # must replace userSurname with name recieved from complaints page
     for name in oldEngSurnames:
-        if (userSurname == name):
-            profile['Fancy Pants'] = "Ooooh look at me with an old English surname, I must be fancy";
+        if (surname == name):
+            profile['Fancy Pants'] = "'Ooooh look at me with an old English surname, I must be fancy.' ";
 
     if (adjectiveWordCount > 1):
-        profile['smart aleck'] = "You heard. "
+        profile['Smart Aleck'] = "You heard. "
 
     if (nounWordCount > 1):
-        profile['introvert'] = "Yeah you should probably get out more... Stop writing complaints whilst you're at it. "
+        profile['Introvert'] = "Yeah you should probably get out more... Stop writing complaints whilst you're at it. "
 
     if (wordCount > 30):
-        profile['bitter'] = "Jeeeez, someone got out of the wrong side of the bed this morning. "
+        profile['Bitter'] = "Jeeeez, someone got out of the wrong side of the bed this morning. "
     elif (wordCount > 10):
-        profile['bitter'] = "Awwww is someone feeling a bit bitter... Maybe you should stop complaining all the time. "
+        profile['Bitter'] = "Awwww is someone feeling a bit bitter... Maybe you should stop complaining all the time. "
 
     if (wordChanges > 5):
-        profile['pessimist'] = "This is a different level of pessimism now. At this point you're probably beyond help. "
+        profile['Pessimist'] = "This is a different level of pessimism now. At this point you're probably beyond help. "
+        profile['Compulsive Liar'] = "We detected a huge number of lies in your complaint, you should probably see a therapist about this habbit. "
     elif (wordChanges > 0):
-        profile['pessimist'] = "You're a pessimist. You gotta lighten up, think more about the good things. The glass is half full.. "
-    return profile
+        profile['Pessimist'] = "You're a pessimist. You gotta lighten up, think more about the good things. "
+        profile['Liar'] = "We detected lies in your complaint, you should of probably grown out of that by now. "
+    
+    return profile  #Need to change format of return
