@@ -11,6 +11,10 @@ app = Flask(__name__)
 def index():
     return render_template("index.html")
 
+@app.route("/admin/adminComplaints")
+def adminComplaints():
+    return render_template("adminComplaints.html")
+
 @app.route("/api/registerUser", methods=['POST'])
 def registerUser():
     newUser = User(request.json['username'], request.json['password'], request.json['email'])
