@@ -11,6 +11,10 @@ app = Flask(__name__)
 def index():
     return render_template("index.html")
 
+@app.route("/admin/adminComplaints")
+def adminComplaints():
+    return render_template("adminComplaints.html")
+
 @app.route("/api/registerUser", methods=['POST'])
 def registerUser():
     newUser = User(request.json['username'], request.json['password'], request.json['email'])
@@ -22,7 +26,7 @@ def registerUser():
 def checkUsernameAvailable():
     username = request.json['username']
     userList = UserList()
-    if(username in userList.keys()):
+    if(username in userList.userList.keys()):
         return "not_available"
     return "available"
 

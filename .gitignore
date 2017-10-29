@@ -1,4 +1,6 @@
 *vscode
-*__pychache__
+*__pycache__
+users.json
+complaints.json
 longboi/dist
 longboi/node_modules

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Complaints</title>
+
+    <link rel="stylesheet" type="text/css" href="static/style.css">
+  </head>
+  <body>
+
+    <!-- ====== SCRIPTS GO BELOW HERE ===================================== -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <table id="complaints">
+      <tr>
+        <th>Username</th>
+        <th>Complaint</th>
+      </tr>
+      <script>
+          $.getJSON('http://localhost:5000/api/getComplaints', function(data) {
+              for (item in data)
+              {
+                  $('#complaints').append('<tr><td>' + data[item][1] + '</td><td>' + data[item][0] + '</td></tr>');
+              }
+          })
+      </script>
+    </table>
+  </body>
+</html>

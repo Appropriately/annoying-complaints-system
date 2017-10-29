@@ -9,6 +9,8 @@ export class Snek {
     key: number
     isPlaying: boolean = false
     died: boolean = false
+    won: boolean = false
+    noms: number = 0
     initialLength = 0
     initialX = 0
     initialY = 0
@@ -28,6 +30,8 @@ export class Snek {
     reset(board: Board) {
         board.clear()
         this.died = false
+        this.won = false
+        this.noms = 0
         this.positions = new Array(this.initialLength)
         for (let i = 0; i < this.initialLength; ++i) {
             let x = this.initialX - i
@@ -41,8 +45,19 @@ export class Snek {
 
     draw(board: Board) {
         this.positions.forEach((v) => {
-            board.drawSquare(v.x, v.y, "red")
+            board.drawSquare(v.x, v.y, "#E06C75")
         })
+
+        if (!this.isPlaying) {
+            if (this.died) {
+                board.drawOverlayText("You died; "
+                    + "Press any key to play  L O N G B O I")
+            } else if (this.won) {
+                board.drawOverlayText("You won! Press any key to play again")
+            } else {
+                board.drawOverlayText("Press any key to play  L O N G B O I")
+            }
+        }
     }
 
     update(board: Board) {
@@ -135,20 +150,20 @@ export class Snek {
                 })
                 ++this.headIndex
 
+                ++this.noms
+
+                // Test if the player has won
+                if (this.noms >= 5) {
+                    this.won = true
+                    this.isPlaying = false
+                }
+
                 board.placeFood()
             }
-        } else {
-            if (this.died) {
-                board.drawOverlayText("You died; "
-                    + "Press any key to play  L O N G B O I")
-            } else {
-                board.drawOverlayText("Press any key to play  L O N G B O I")
-            }
-            if (this.key != undefined) {
-                this.reset(board)
-                board.placeFood()
-                this.isPlaying = true
-            }
+        } else if (this.key != undefined) {
+            this.reset(board)
+            board.placeFood()
+            this.isPlaying = true
         }
 
         // Clear keyboard input
