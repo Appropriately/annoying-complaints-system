@@ -3,9 +3,10 @@ import { Entity } from "./entity"
 export class Board {
     stageColor = "Black"
 
-    grid: Entity[][]
     ctx: CanvasRenderingContext2D
     canvas: HTMLCanvasElement
+    width: number
+    height: number
     leftRightMargin = 0
     topBottomMargin = 0
     tileSize = 0
@@ -16,10 +17,8 @@ export class Board {
         this.ctx = ctx
         this.canvas = canvas
 
-        this.grid = new Array(width)
-        for (let i = 0; i < width; ++i) {
-            this.grid[i] = new Array(height)
-        }
+        this.width = width
+        this.height = height
 
         this.tileSize = Math.min(Math.floor(this.canvas.width / width),
                                  Math.floor(this.canvas.height / height))
@@ -42,11 +41,11 @@ export class Board {
     }
 
     getWidth() {
-        return this.grid.length
+        return this.width
     }
 
     getHeight() {
-        return this.grid[0].length
+        return this.height
     }
 
     drawSquare(x: number, y: number, fill: string) {

@@ -109,8 +109,11 @@ export class Snek {
                         || this.positions[this.headIndex].x < 0
                         || this.positions[this.headIndex].y > board.getWidth()-1
                         || this.positions[this.headIndex].y < 0
-        
-        if (offGrid) {
+        const eatSelf = this.positions.filter((v) => {
+            let pos = this.positions[this.headIndex]
+            return v.x == pos.x && v.y == pos.y
+        }).length > 1
+        if (offGrid || eatSelf) {
             this.isPlaying = false
             this.died = true
         }
