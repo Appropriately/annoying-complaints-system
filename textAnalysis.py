@@ -33,7 +33,6 @@ def makePositive(originalComplaint):
             if(wordBlob.sentiment[0] < 0):
                 wordChanges += 1
                 textBlob = textBlob.replace(textBlob.tags[index][0], getAntonym(textBlob.tags[index][0]))
-    #return str(makeUserProfile())
     return str(textBlob)
 
 def getAntonym(word):
@@ -46,14 +45,25 @@ def getAntonym(word):
 def correctSpelling(originalComplaint):
     textBlob = TextBlob(originalComplaint)
 
-def makeUserProfile():
+def makeUserProfile(userSurname):
     # return dictionary of user profiling summary
-    profile = {"Full Name":"Nice FANCY surname you have"}
+    profile = {"Moany Bitch":"Moans way too much, could do with changing that"}
+    userSurname = "Tudor"
 
-    if(adjectiveWordCount > 1):
+    surnameFile = open('oldEnglishSurnames.txt', 'r')
+    oldEngSurnames = []
+    for line in surnameFile:
+        oldEngSurnames.append(line.replace("\r\n", ""));
+    
+    # must replace userSurname with name recieved from complaints page
+    for name in oldEngSurnames:
+        if (userSurname == name):
+            profile['Fancy Pants'] = "Ooooh look at me with an old English surname, I must be fancy";
+
+    if (adjectiveWordCount > 1):
         profile['smart aleck'] = "You heard. "
 
-    if(nounWordCount > 1):
+    if (nounWordCount > 1):
         profile['introvert'] = "Yeah you should probably get out more... Stop writing complaints whilst you're at it. "
 
     if (wordCount > 30):
@@ -61,7 +71,7 @@ def makeUserProfile():
     elif (wordCount > 10):
         profile['bitter'] = "Awwww is someone feeling a bit bitter... Maybe you should stop complaining all the time. "
 
-    if(wordChanges > 5):
+    if (wordChanges > 5):
         profile['pessimist'] = "This is a different level of pessimism now. At this point you're probably beyond help. "
     elif (wordChanges > 0):
         profile['pessimist'] = "You're a pessimist. You gotta lighten up, think more about the good things. The glass is half full.. "
