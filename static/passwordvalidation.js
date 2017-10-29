@@ -1,10 +1,11 @@
 // checkPassword to replace function in:
 // <element onchange="function()">
 // where element is the password entry box
-// need to pass the value of the password
-
+// get the password value, store in pword
 // TODO: Change all document.getElementById.... 
-function checkPassword(pword) {
+function checkPassword() {
+  pword = $("#pword").val();
+
   if(pword.length < 15){
     alert("Password must be at least 15 characters long.");
     //document.getElementById("pwordFeedback").innerHTML = "error;
@@ -26,23 +27,23 @@ function checkPassword(pword) {
     }
   
     if (restOfPW.search(SpecChar) == -1) {
-      alert("Password must contain two different special characters.");
-      //document.getElementById("pwordFeedback").innerHTML = "error";
+      errorMsg = "Password must contain two different special characters.";
+      document.getElementById("pwordErrorMsg").innerHTML = errorMsg;
     }
   } else {
-    alert("Password must contain two different special characters.");
-    //document.getElementById("pwordFeedback").innerHTML = "error";
+    errorMsg = "Password must contain two different special characters.";
+    document.getElementById("pwordErrorMsg").innerHTML = errorMsg;
   }
   
   var reConSeqNum = /\d\d/;
   if (pword.search(reConSeqNum) > 0){
-    alert("Password cannot have 2 consecutive numbers.");
-    //document.getELementById("pwordFeedback").innerHTML = "error";
+    errorMsg = "Password cannot have 2 consecutive numbers.";
+    document.getELementById("pwordErrorMsg").innerHTML = errorMsg;
   }
   
   var re3Num =  /\d(.)*\d(.)*\d/;
   if (!(pword.search(re3Num) > -1)){
-    alert("Password must contain at least 3 numbers.");
-    //document.getElementById("pwordFeedback").innerHTML = "error";
+    errorMsg = "Password must contain at least 3 numbers.";
+    document.getElementById("pwordErrorMsg").innerHTML = errorMsg;
   }
 }

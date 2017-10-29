@@ -7,7 +7,8 @@
     <span ng-show="usernameTaken == true">Username has been taken</span>
   </p>
   <p>Password:
-    <input type="password" ng-model="password" ng-required="true" required>
+    <input id="pword" onchange="checkPassword()" type="password" ng-model="password" ng-required="true" required>
+    <span id="pwordErrorMsg" style="color:white; font-style:italic"></span>
   </p>
   <p>Email Address:
     <input type="email" ng-model="email" ng-required="true" required>
