@@ -17,7 +17,7 @@ for(i = 0; i < generatedPWrd.length; i++) {
 
 pwrdSuggestions = "Here are some passsword suggestions: " + generatedPWrd[0] + ", " + generatedPWrd[1] + ", " + generatedPWrd[2] + ".";
 
-// Changed so correct HTML element has password suggestions loaded in it
-// document.getElementById("passwordSuggestion").innerHTML = pwrdSuggestions
+// Change so correct HTML element has password suggestions loaded in it
+document.getElementById("pwordErrorMsg").innerHTML = pwrdSuggestions
 
 }

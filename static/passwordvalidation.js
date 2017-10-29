@@ -45,5 +45,7 @@ function checkPassword() {
   if (!(pword.search(re3Num) > -1)){
     errorMsg = "Password must contain at least 3 numbers.";
     document.getElementById("pwordErrorMsg").innerHTML = errorMsg;
+  } else {
+    document.getElementById("pwordErrorMsg").innerHTML = "";
   }
 }
