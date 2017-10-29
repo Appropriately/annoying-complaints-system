@@ -5,8 +5,9 @@
 // TODO: Change all document.getElementById....
 function checkPassword() {
   pword = $("#pword").val();
+  pwordLen = $("#pword").val().length;
 
-  if(pword.length < 15){
+  if(pwordLen < 15){
     errorMsg = "Password must be at least 15 characters long.";
     document.getElementById("pwordErrorMsg").innerHTML = errorMsg;
   }
@@ -49,7 +50,7 @@ function checkPassword() {
     document.getElementById("pwordErrorMsg").innerHTML = errorMsg;
   }
 
-  if((pword.length > 14) && twodDifSpec && (pword.search(reConSeqNum) == -1) && (pword.search(re3Num) > -1 )) {
+  if((pwordLen > 14) && twodDifSpec && (pword.search(reConSeqNum) == -1) && (pword.search(re3Num) > -1 )) {
     document.getElementById("pwordErrorMsg").innerHTML = "";
   }
 
