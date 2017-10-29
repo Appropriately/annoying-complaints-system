@@ -18,6 +18,19 @@
       $scope.currentView = page;
     }; // navigate
 
+    $scope.adjustComplaint = function() {
+      $http({
+        method: "POST",
+        url: "/api/getPositiveComplaint",
+        data: {
+          complaint: $scope.complaint,
+        }
+      }).success(function (data) {
+        $scope.complaint = data;
+        $scope.navigate('check');
+      });
+    } // adjustComplaint
+  
     $scope.postComplaint = function() {
       $http({
         method: "POST",
@@ -27,7 +40,7 @@
           username: $scope.username
         }
       }).success(function (data) {
-        $scope.complaint = data;
+        console.log(data);
         $scope.navigate('longboi');
       });
     }; // postComplaint
