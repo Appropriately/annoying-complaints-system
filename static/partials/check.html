@@ -2,7 +2,6 @@
 <h4>Are these details correct?</h4>
 <hr>
 <p>Full name: {{ firstName }} {{ lastName }}</p>
-<p>Email address: {{ email }}</p>
 <p>Date of Birth: {{ dob | date:'longDate'}}</p>
 <hr>
 <p>Your complaint:</p>
@@ -10,4 +9,5 @@
 <br><br><br><br>
 <div class="navigation">
   <button ng-click="navigate('basic')">Back</button>
+  <button ng-click="postComplaint()">Submit</button>
 </div>

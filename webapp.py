@@ -15,7 +15,7 @@ def index():
 
 @app.route("/api/registerUser", methods=['POST'])
 def registerUser():
-    newUser = User(request.form['username'], request.form['password'], request.form['email'])
+    newUser = User(request.json['username'], request.json['password'], request.json['email'])
     userList = UserList()
     userList.addUser(newUser)
     return "User added"
@@ -34,7 +34,7 @@ def authenticateUser():
 
 @app.route("/api/postComplaint", methods=['POST'])
 def postComplaint():
-    complaint = request.form['complaint']
+    complaint = request.json['complaint']
     complaint = textAnalysis.makePositive(complaint)
     return complaint
 

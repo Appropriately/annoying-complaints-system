@@ -1,9 +1,10 @@
 :root {
   --background: #222222;
-  --foreground: #8E9EAF;
-  --accent: #DBDBDB;
-  --text-one: #7E4E60;
-  --shadow: #929499;
+  --foreground: #696773;
+  --accent: #EBD4CB;
+  --text-one: #65334D;
+  --text-two: #DA9F93;
+  --shadow: #43424A;
 }
 
 html, body {
@@ -12,7 +13,9 @@ html, body {
 }
 
 body {
-  background: var(--background);
+  background: linear-gradient(var(--background), var(--shadow)) var(--background);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
   color: white;
   font-family: Verdana,Geneva,sans-serif;
   text-align: center;
@@ -38,8 +41,9 @@ button {
   box-shadow: 1px 1px 2px var(--shadow);
 }
 
-input, textarea {
+input, textarea, select {
   border: none;
+  padding: 5px;
 }
 
 .box {
@@ -62,11 +66,15 @@ input, textarea {
   right: 0;
   margin: 0 auto;
   position: absolute;
-  bottom: 20px;
+  bottom: 0px;
+}
+
+.navigation button {
+  margin: 20px;
 }
 
 .split {
-  height: 140px;
+  min-height: 140px;
   width: 80%;
   border-radius: 10px;
   margin: 20px auto;
@@ -83,7 +91,26 @@ input, textarea {
   color: var(--background)
 }
 
+.brexit {
+  padding-top: 0 !important;
+}
+
+.brexit textarea {
+  width: 80%;
+  height: 100px;
+}
+
 #complaint {
   width: 80%;
   height: 200px;
+}
+
+#title {
+  color: var(--text-two);
+  font-style: italic;
+  text-align: left;
+  font-weight: bolder;
+  margin-left: 20px;
+  text-decoration: underline;
+  text-shadow: 2px 2px 2px var(--text-one);
 }
