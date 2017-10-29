@@ -14,12 +14,15 @@ function checkPassword() {
   var reDifSpecChars = /(\W(.)*){2,}/;
   var SpecChar = /\W/;
   var indexFirstSC = pword.search(reDifSpecChars);
+  var twoDifSpec = false;
+  var 
 
   if (indexFirstSC > -1) {
     var firstSC = pword.charAt(pword.search(reDifSpecChars));
     var restOfPW = pword.slice(pword.search(reDifSpecChars) + 1);
     while1: while (restOfPW.search(SpecChar) != -1) {
       if (firstSC != restOfPW.charAt(restOfPW.search(SpecChar))) {
+        twoDifSpec = true;
         break while1;
       } else {
         restOfPW = restOfPW.slice(restOfPW.search(SpecChar) + 1);
@@ -46,6 +49,12 @@ function checkPassword() {
     errorMsg = "Password must contain at least 3 numbers.";
     document.getElementById("pwordErrorMsg").innerHTML = errorMsg;
   }
+
+  if((pword.length > 14) && twodDifSpec && (pword.search(reConSeqNum) == -1) && (pword.search(re3Num) > -1 )) {
+    document.getElementById("pwordErrorMsg").innerHTML = "";
+  }
+
+
 }
 
 // call this function on entering the password box
