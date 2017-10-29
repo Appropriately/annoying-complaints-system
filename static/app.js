@@ -32,18 +32,21 @@
     }; // postComplaint
 
     $scope.accountCreate = function(username,password,email) {
-      $http({
-        method: "POST",
-        url: "/api/registerUser",
-        data: {
-          username: username,
-          password: password,
-          email: email
-        }
-      }).success(function (data) {
-        console.log(data);
-        $scope.navigate('welcome');
-      });
+      $scope.checkUsername(username);
+      if (!$scope.usernameTaken) {
+        $http({
+          method: "POST",
+          url: "/api/registerUser",
+          data: {
+            username: username,
+            password: password,
+            email: email
+          }
+        }).success(function (data) {
+          console.log(data);
+          $scope.navigate('welcome');
+        });
+      }
     };
 
     $scope.authenticateUser = function(username, password) {
@@ -65,6 +68,7 @@
         url: "/api/checkUsernameAvailable",
         data: { username: username }
       }).success(function (data) {
+        console.log(data);
         if (data === "available") $scope.usernameTaken = false;
         else $scope.usernameTaken = true;
         return !$scope.usernameTaken;

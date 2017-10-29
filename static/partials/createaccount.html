@@ -16,6 +16,5 @@
 </form>
 <div class="navigation">
   <button ng-click="navigate('welcome')">Back</button>
-  <button ng-click="checkUsername(username) == true && account.$valid
-                             &&accountCreate(username,password,email)">Create account</button>
+  <button ng-click="account.$valid && accountCreate(username,password,email)">Create account</button>
 </div>
