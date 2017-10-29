@@ -27,6 +27,7 @@
           username: $scope.username
         }
       }).success(function (data) {
+        $scope.complaint = data;
         $scope.navigate('finished');
       });
     }; // postComplaint
