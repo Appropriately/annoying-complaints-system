@@ -51,7 +51,7 @@ def makeUserProfile(firstname, surname):
     profile = {"Moany Bitch":"Moans way too much, could do with changing that"}
     
     if (len(firstname) > 7 ):
-        profile['pretentious'] = "With a name like that.... You've got to be pretentious. "
+        profile['Pretentious'] = "With a name like that.... You've got to be pretentious. "
 
     surnameFile = open('oldEnglishSurnames.txt', 'r')
     oldEngSurnames = []
