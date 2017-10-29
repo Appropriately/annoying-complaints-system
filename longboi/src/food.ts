@@ -10,7 +10,7 @@ export class Food {
     }
 
     draw(board: Board) {
-        board.drawSquare(this.x, this.y, "green")
+        board.drawSquare(this.x, this.y, "#98C379")
     }
 
     update(board: Board) {

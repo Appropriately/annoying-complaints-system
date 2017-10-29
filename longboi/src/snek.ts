@@ -43,7 +43,7 @@ export class Snek {
 
     draw(board: Board) {
         this.positions.forEach((v) => {
-            board.drawSquare(v.x, v.y, "red")
+            board.drawSquare(v.x, v.y, "#E06C75")
         })
 
         if (!this.isPlaying) {
