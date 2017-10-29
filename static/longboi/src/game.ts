@@ -8,13 +8,15 @@ export namespace game {
     const gridHeight = 10
     const gridWidth = 10
 
-    const canvas = <HTMLCanvasElement> document.getElementById("longboi-canvas")
-    const context = canvas.getContext("2d")
+    let canvas: HTMLCanvasElement
+    let context: CanvasRenderingContext2D
 
     let entities: Entity[] = []
     let board: Board
 
     export function run() {
+        canvas = <HTMLCanvasElement> document.getElementById("longboi-canvas")
+        context = canvas.getContext("2d")
         start()
         setInterval(() => { draw(); update() }, updateDelay)
     }
