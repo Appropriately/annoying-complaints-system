@@ -38,7 +38,7 @@ function checkPassword() {
   var reConSeqNum = /\d\d/;
   if (pword.search(reConSeqNum) > 0){
     errorMsg = "Password cannot have 2 consecutive numbers.";
-    document.getELementById("pwordErrorMsg").innerHTML = errorMsg;
+    document.getElementById("pwordErrorMsg").innerHTML = errorMsg;
   }
 
   var re3Num =  /\d(.)*\d(.)*\d/;
