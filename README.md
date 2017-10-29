@@ -13,9 +13,11 @@ was to produce a complaint system that makes a user even angrier.
 * Analyses text to produce the positive version of a complaint
 * Asks unnecessary questions
 * Works as a fully functional complaints system
+* Custom captcha for added inconvenience
 
 ## Who worked on it?
- [Sean Lewis](https://github.com/Appropriately): Frontend
- [Luke Beamish](https://github.com/Beamister): Backend
- [Joe Blackmore](https://github.com/j-blackmore): Text analysis and password conditions
- [Adam Cowdy](https://github.com/Acowdy): Captcha system
+
+*  [Sean Lewis](https://github.com/Appropriately): Frontend
+*  [Luke Beamish](https://github.com/Beamister): Backend
+*  [Joe Blackmore](https://github.com/j-blackmore): Text analysis and password conditions
+*  [Adam Cowdy](https://github.com/Acowdy): Captcha system
