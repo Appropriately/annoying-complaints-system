@@ -1,3 +1,5 @@
+var twoDifSpec = false;
+
 // checkPassword to replace function in:
 // <element onchange="function()">
 // where element is the password entry box
@@ -15,7 +17,6 @@ function checkPassword() {
   var reDifSpecChars = /(\W(.)*){2,}/;
   var SpecChar = /\W/;
   var indexFirstSC = pword.search(reDifSpecChars);
-  var twoDifSpec = false;
 
   if (indexFirstSC > -1) {
     var firstSC = pword.charAt(pword.search(reDifSpecChars));
@@ -50,7 +51,7 @@ function checkPassword() {
     document.getElementById("pwordErrorMsg").innerHTML = errorMsg;
   }
 
-  if((pwordLen > 14) && twodDifSpec && (pword.search(reConSeqNum) == -1) && (pword.search(re3Num) > -1 )) {
+  if ((pwordLen > 14) && twoDifSpec  && (pword.search(reConSeqNum) == -1) && (pword.search(re3Num) > -1 )) {
     document.getElementById("pwordErrorMsg").innerHTML = "";
   }
 
