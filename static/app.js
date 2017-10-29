@@ -7,6 +7,9 @@
     // Set up some scope variables for later use
     $scope.firstName = ""; $scope.lastName = "";
     $scope.dob = ""; $scope.complaint = "";
+    $scope.username = "";
+
+    $scope.usernameTaken = false;
 
     // Used for a generic message
     $scope.companyName = "FuckYouInc"
@@ -20,7 +23,8 @@
         method: "POST",
         url: "/api/postComplaint",
         data: {
-          complaint: $scope.complaint
+          complaint: $scope.complaint,
+          username: $scope.username
         }
       }).success(function (data) {
         $scope.navigate('longboi');
@@ -52,6 +56,18 @@
         }
       }).success(function(data) {
         if (data === "authenticated") $scope.navigate('introduction');
+      });
+    };
+
+    $scope.checkUsername = function (username) {
+      $http({
+        method: "POST",
+        url: "/api/checkUsernameAvailable",
+        data: { username: username }
+      }).success(function (data) {
+        if (data === "available") $scope.usernameTaken = false;
+        else $scope.usernameTaken = true;
+        return !$scope.usernameTaken;
       });
     };
   }])

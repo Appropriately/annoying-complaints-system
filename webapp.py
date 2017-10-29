@@ -22,7 +22,7 @@ def registerUser():
 def checkUsernameAvailable():
     username = request.json['username']
     userList = UserList()
-    if(username in userList.keys()):
+    if(username in userList.userList.keys()):
         return "not_available"
     return "available"
 

@@ -104,6 +104,17 @@ input, textarea, select {
   height: 100px;
 }
 
+.flexContainer {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 !important;
+}
+
+.flexContainer div {
+  width: 30%;
+  padding: 0 !important;
+}
+
 #complaint {
   width: 97%;
   margin: 0 auto;
@@ -118,4 +129,8 @@ input, textarea, select {
   margin-left: 20px;
   text-decoration: underline;
   text-shadow: 2px 2px 2px var(--text-one);
+}
+
+#extradetail {
+  margin-bottom: 100px;
 }
