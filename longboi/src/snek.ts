@@ -10,6 +10,7 @@ export class Snek {
     isPlaying: boolean = false
     died: boolean = false
     won: boolean = false
+    noms: number = 0
     initialLength = 0
     initialX = 0
     initialY = 0
@@ -148,8 +149,10 @@ export class Snek {
                 })
                 ++this.headIndex
 
+                ++this.noms
+
                 // Test if the player has won
-                if (this.getLength() >= board.getHeight() * board.getWidth()) {
+                if (this.noms == 5) {
                     this.won = true
                 }
 
