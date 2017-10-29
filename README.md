@@ -18,6 +18,6 @@ was to produce a complaint system that makes a user even angrier.
 ## Who worked on it?
 
 *  [Sean Lewis](https://github.com/Appropriately): Frontend
-*  [Luke Beamish](https://github.com/Beamister): Backend
-*  [Joe Blackmore](https://github.com/j-blackmore): Text analysis and password conditions
+*  [Luke Beamish](https://github.com/Beamister): Backend and text analysis
+*  [Joe Blackmore](https://github.com/j-blackmore): Text analysis, password validation and user profiling
 *  [Adam Cowdy](https://github.com/Acowdy): Captcha system
