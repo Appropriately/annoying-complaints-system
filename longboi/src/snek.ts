@@ -3,87 +3,159 @@ import { Board } from "./board"
 enum Direction { North, East, South, West }
 
 export class Snek {
-    segmentDirections: Direction[] = []
+    positions: { x: number, y: number }[] = []
     headIndex = 0
-    headPosition = { x: 0, y: 0 }
-    keyPressed: number
+    headDirection: Direction
+    key: number
+    isPlaying: boolean = false
+    died: boolean = false
+    initialLength = 0
+    initialX = 0
+    initialY = 0
 
-    constructor(x: number, y: number, length: number) {
-        this.segmentDirections = new Array(length)
-        for (let i = 0; i < length; ++i) {
-            this.segmentDirections[i] = Direction.West
-        }
-        this.headIndex = 0
-        this.headPosition = {x: x, y: y}
+    constructor(board: Board, x: number, y: number, length: number) {
+        this.initialLength = length
+        this.initialX = x
+        this.initialY = y
+        this.reset(board)
 
         // Listen to keyboard events
         window.addEventListener("keyup", (e) => {
-            this.keyPressed = e.keyCode
+            this.key = e.keyCode
         })
     }
 
-    draw(board: Board) {
-        let curX = this.headPosition.x
-        let curY = this.headPosition.y
-        for (let i = 0; i < this.getLength(); ++i) {
-            board.drawSquare(curX, curY, "red") // Hardcode it for the demo lmao
-            switch (this.segmentDirections[(this.headIndex + i)
-                                           % this.getLength()]) {
-                case Direction.North:
-                    --curY
-                    break
-                case Direction.East:
-                    ++curX
-                    break
-                case Direction.South:
-                    ++curY
-                    break
-                case Direction.West:
-                    --curX
-                    break
-            }
+    reset(board: Board) {
+        board.clear()
+        this.died = false
+        this.positions = new Array(this.initialLength)
+        for (let i = 0; i < this.initialLength; ++i) {
+            let x = this.initialX - i
+            let y = this.initialY
+            this.positions[i] = { x: x, y: y }
+            board.grid[x][y] = true
         }
+        this.headIndex = 0
+        this.headDirection = Direction.East
+    }
+
+    draw(board: Board) {
+        this.positions.forEach((v) => {
+            board.drawSquare(v.x, v.y, "red")
+        })
     }
 
     update(board: Board) {
-        let dir: Direction = this.segmentDirections[this.headIndex]
-        this.headIndex = (this.headIndex + 1) % this.getLength()
-        switch (this.keyPressed) {
-            case 38: // Up arrow
-                dir = Direction.South
-                break
-            case 39: // Right arrow
-                dir = Direction.West
-                break
-            case 40: // Down arrow
-                dir = Direction.North
-                break
-            case 37: // Left arrow
-                dir = Direction.East
-                break
-        }
-        this.segmentDirections[this.headIndex] = dir
+        if (this.isPlaying) {
+            let newHeadIndex = this.headIndex - 1 == -1 ? this.getLength() - 1
+                : this.headIndex - 1
 
-        switch (dir) {
-            case Direction.North:
-                ++this.headPosition.y
-                break
-            case Direction.East:
-                --this.headPosition.x
-                break
-            case Direction.South:
-                --this.headPosition.y
-                break
-            case Direction.West:
-                ++this.headPosition.x
-                break
+            // Remove tail from record of occupied squares
+            board.grid[this.positions[newHeadIndex].x]
+                      [this.positions[newHeadIndex].y] = false
+
+            switch (this.key) {
+                case 38: // Up arrow
+                    if (this.headDirection != Direction.South)
+                        this.headDirection = Direction.North
+                    break
+                case 39: // Right arrow
+                    if (this.headDirection != Direction.West)
+                        this.headDirection = Direction.East
+                    break
+                case 40: // Down arrow
+                    if (this.headDirection != Direction.North)
+                        this.headDirection = Direction.South
+                    break
+                case 37: // Left arrow
+                    if (this.headDirection != Direction.East)
+                        this.headDirection = Direction.West
+                    break
+            }
+
+            switch (this.headDirection) {
+                case Direction.North:
+                    this.positions[newHeadIndex].x
+                        = this.positions[this.headIndex].x
+                    this.positions[newHeadIndex].y
+                        = this.positions[this.headIndex].y - 1
+                    break
+                case Direction.East:
+                    this.positions[newHeadIndex].x
+                        = this.positions[this.headIndex].x + 1
+                    this.positions[newHeadIndex].y
+                        = this.positions[this.headIndex].y
+                    break
+                case Direction.South:
+                    this.positions[newHeadIndex].x
+                        = this.positions[this.headIndex].x
+                    this.positions[newHeadIndex].y
+                        = this.positions[this.headIndex].y + 1
+                    break
+                case Direction.West:
+                    this.positions[newHeadIndex].x
+                        = this.positions[this.headIndex].x - 1
+                    this.positions[newHeadIndex].y
+                        = this.positions[this.headIndex].y
+                    break
+            }
+
+            this.headIndex = newHeadIndex
+
+            // Check for death
+            const offGrid
+                = this.positions[this.headIndex].x > board.getWidth() - 1
+                || this.positions[this.headIndex].x < 0
+                || this.positions[this.headIndex].y > board.getWidth() - 1
+                || this.positions[this.headIndex].y < 0
+            const eatSelf = this.positions.filter((v, i, l) => {
+                let pos = this.positions[this.headIndex]
+                return v.x == pos.x && v.y == pos.y
+            }).length > 1
+            if (offGrid || eatSelf) {
+                this.isPlaying = false
+                this.died = true
+                return
+            }
+
+            // Add head to record of occupied squares
+            board.grid[this.positions[this.headIndex].x]
+                      [this.positions[this.headIndex].y] = true
+
+            // Check for food
+            let foodFound = board.foodAt(this.positions[this.headIndex].x,
+                this.positions[this.headIndex].y)
+            if (foodFound) {
+                // Extend snake
+                let tailIndex = newHeadIndex > 0 ? newHeadIndex - 1
+                                                 : this.getLength() - 1
+                this.positions.splice(tailIndex, 0, {
+                    x: this.positions[tailIndex].x,
+                    y: this.positions[tailIndex].y
+                })
+                ++this.headIndex
+
+                board.placeFood()
+            }
+        } else {
+            if (this.died) {
+                board.drawOverlayText("You died; "
+                    + "Press any key to play  L O N G B O I")
+            } else {
+                board.drawOverlayText("Press any key to play  L O N G B O I")
+            }
+            if (this.key != undefined) {
+                this.reset(board)
+                board.placeFood()
+                this.isPlaying = true
+            }
         }
 
         // Clear keyboard input
-        this.keyPressed = undefined
+        this.key = undefined
     }
 
     getLength() {
-        return this.segmentDirections.length
+        return this.positions.length
     }
 }

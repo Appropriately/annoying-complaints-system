@@ -4,7 +4,7 @@ import { Board } from "./board"
 
 export namespace game {
     // Magic constants
-    const updateFrequency = 16
+    const updateFrequency = 100
     const gridHeight = 20
     const gridWidth = 20
 
@@ -16,15 +16,14 @@ export namespace game {
 
     export function run() {
         start()
-        setInterval(() => { draw(); update() }, 16)
+        setInterval(() => { draw(); update() }, updateFrequency)
     }
 
     function start() {
         // TODO: create level and snek
         // snek = new Snek()
         board = new Board(gridWidth, gridHeight, context, canvas)
-
-        entities.push(new Snek(2, 0, 3))
+        entities.push(new Snek(board, 3, 0, 4))
     }
 
     function draw() {
