@@ -15,7 +15,6 @@ function checkPassword() {
   var SpecChar = /\W/;
   var indexFirstSC = pword.search(reDifSpecChars);
   var twoDifSpec = false;
-  var 
 
   if (indexFirstSC > -1) {
     var firstSC = pword.charAt(pword.search(reDifSpecChars));
