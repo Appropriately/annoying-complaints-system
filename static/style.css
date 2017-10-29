@@ -121,12 +121,10 @@ input, textarea, select {
   height: 200px;
 }
 
-#title {
+.title {
   color: var(--text-two);
   font-style: italic;
-  text-align: left;
   font-weight: bolder;
-  margin-left: 20px;
   text-decoration: underline;
   text-shadow: 2px 2px 2px var(--text-one);
 }
