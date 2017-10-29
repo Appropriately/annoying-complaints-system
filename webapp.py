@@ -58,6 +58,16 @@ def getComplaints():
     complaintList = ComplaintList()
     return jsonify(complaintList.complaintDict)
 
+@app.route("/api/getUserComplaints")
+def getUserComplaints():
+    username = request.json['username']
+    complaintList = ComplaintList()
+    usersComplaints = []
+    for key in complaintList.complaintDict.keys():
+        if(complaintList.complaintDict[key][1] == username):
+            usersComplaints.append(complaintList.complaintDict[key][0])
+    return jsonify(usersComplaints)
+
 @app.route("/api/addToQueue")
 def addToQueue():
     if(not session.has_key('QueueID')):
@@ -81,6 +91,26 @@ def getQueuePosition():
 def leaveQueue():
     session.pop('QueueID', None)
     return "Left Queue"
+
+@app.route("/api/getChatResponse", methods=['POST'])
+def getChatResponse():
+    message = request.json['message']
+    message = message.upper()
+    if("CAPTCHA" in message):
+        return "Git good at long boi"
+    elif("BROKEN" in message):
+        return "This website is perfect the way it is"
+    elif("WHY" in message):
+        return "I do not know why anything, I am but a humble bot"
+    elif("NOT WORKING" in message):
+        return "Have you tried burning it to the ground and rebuilding from scratch"
+    elif("WHAT IS" in message):
+        return "Use the internet, dumbass"
+    elif("HOW" in message):
+        return "Do not question the workings of the universe"
+    else:
+        return "I have no fucking clue what you're on about"
+
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0')
