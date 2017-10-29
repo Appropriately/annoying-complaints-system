@@ -15,7 +15,7 @@ function generatePWrdSuggestions() {
     generatedPWrd[i] = adj + noun + numSeq;
   }
 
-  pwrdSuggestions = "Here are some passsword suggestions: " + generatedPWrd[0] + ", " + generatedPWrd[1] + ", " + generatedPWrd[2] + ".";
+  pwrdSuggestions = "suggestions: " + generatedPWrd[0] + ", " + generatedPWrd[1] + ", " + generatedPWrd[2] + ".";
 
   // Change so correct HTML element has password suggestions loaded in it
   document.getElementById("pwordErrorMsg").innerHTML = pwrdSuggestions
