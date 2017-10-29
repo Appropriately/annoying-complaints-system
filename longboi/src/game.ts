@@ -23,8 +23,7 @@ export namespace game {
         // TODO: create level and snek
         // snek = new Snek()
         board = new Board(gridWidth, gridHeight, context, canvas)
-
-        entities.push(new Snek(3, 0, 4))
+        entities.push(new Snek(board, 3, 0, 4))
     }
 
     function draw() {

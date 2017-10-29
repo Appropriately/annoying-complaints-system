@@ -3,7 +3,7 @@ import { Board } from "./board"
 enum Direction { North, East, South, West }
 
 export class Snek {
-    positions: {x: number, y: number}[] = []
+    positions: { x: number, y: number }[] = []
     headIndex = 0
     headDirection: Direction
     key: number
@@ -13,11 +13,11 @@ export class Snek {
     initialX = 0
     initialY = 0
 
-    constructor(x: number, y: number, length: number) {
+    constructor(board: Board, x: number, y: number, length: number) {
         this.initialLength = length
         this.initialX = x
         this.initialY = y
-        this.reset()
+        this.reset(board)
 
         // Listen to keyboard events
         window.addEventListener("keyup", (e) => {
@@ -25,11 +25,15 @@ export class Snek {
         })
     }
 
-    reset() {
+    reset(board: Board) {
+        board.clear()
         this.died = false
         this.positions = new Array(this.initialLength)
         for (let i = 0; i < this.initialLength; ++i) {
-            this.positions[i] = {x: this.initialX - i, y: this.initialY}
+            let x = this.initialX - i
+            let y = this.initialY
+            this.positions[i] = { x: x, y: y }
+            board.grid[x][y] = true
         }
         this.headIndex = 0
         this.headDirection = Direction.East
@@ -44,7 +48,12 @@ export class Snek {
     update(board: Board) {
         if (this.isPlaying) {
             let newHeadIndex = this.headIndex - 1 == -1 ? this.getLength() - 1
-                                                        : this.headIndex - 1
+                : this.headIndex - 1
+
+            // Remove tail from record of occupied squares
+            board.grid[this.positions[newHeadIndex].x]
+                      [this.positions[newHeadIndex].y] = false
+
             switch (this.key) {
                 case 38: // Up arrow
                     if (this.headDirection != Direction.South)
@@ -90,32 +99,56 @@ export class Snek {
                         = this.positions[this.headIndex].y
                     break
             }
+
             this.headIndex = newHeadIndex
+
+            // Check for death
+            const offGrid
+                = this.positions[this.headIndex].x > board.getWidth() - 1
+                || this.positions[this.headIndex].x < 0
+                || this.positions[this.headIndex].y > board.getWidth() - 1
+                || this.positions[this.headIndex].y < 0
+            const eatSelf = this.positions.filter((v, i, l) => {
+                let pos = this.positions[this.headIndex]
+                return v.x == pos.x && v.y == pos.y
+            }).length > 1
+            if (offGrid || eatSelf) {
+                this.isPlaying = false
+                this.died = true
+                return
+            }
+
+            // Add head to record of occupied squares
+            board.grid[this.positions[this.headIndex].x]
+                      [this.positions[this.headIndex].y] = true
+
+            // Check for food
+            let foodFound = board.foodAt(this.positions[this.headIndex].x,
+                this.positions[this.headIndex].y)
+            if (foodFound) {
+                // Extend snake
+                let tailIndex = newHeadIndex > 0 ? newHeadIndex - 1
+                                                 : this.getLength() - 1
+                this.positions.splice(tailIndex, 0, {
+                    x: this.positions[tailIndex].x,
+                    y: this.positions[tailIndex].y
+                })
+                ++this.headIndex
+
+                board.placeFood()
+            }
         } else {
             if (this.died) {
                 board.drawOverlayText("You died; "
-                                      + "Press any key to play  L O N G B O I")
+                    + "Press any key to play  L O N G B O I")
             } else {
                 board.drawOverlayText("Press any key to play  L O N G B O I")
             }
             if (this.key != undefined) {
-                this.reset()
+                this.reset(board)
+                board.placeFood()
                 this.isPlaying = true
             }
-        }
-
-        // Check for death
-        const offGrid = this.positions[this.headIndex].x > board.getWidth()-1
-                        || this.positions[this.headIndex].x < 0
-                        || this.positions[this.headIndex].y > board.getWidth()-1
-                        || this.positions[this.headIndex].y < 0
-        const eatSelf = this.positions.filter((v) => {
-            let pos = this.positions[this.headIndex]
-            return v.x == pos.x && v.y == pos.y
-        }).length > 1
-        if (offGrid || eatSelf) {
-            this.isPlaying = false
-            this.died = true
         }
 
         // Clear keyboard input
