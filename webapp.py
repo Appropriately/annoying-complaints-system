@@ -1,7 +1,7 @@
 import random
 import sys
 import textAnalysis
-from flask import Flask, send_file, session, request, template_rendered, render_template, jsonify
+from flask import Flask, session, request, render_template, jsonify
 from models import User, UserList, QueueList, ComplaintList
 
 app = Flask(__name__)
@@ -61,6 +61,11 @@ def getPositiveComplaint():
     complaint = request.json['complaint']
     complaint = textAnalysis.makePositive(complaint)
     return complaint
+
+@app.route("/api/getCorrectSpelling", methods=['POST'])
+def getCorrectSpelling():
+    text = request.json['text']
+    return textAnalysis.correctSpelling(text)
 
 @app.route("/api/postEvaluation", methods=['POST'])
 def postEvaluation():
