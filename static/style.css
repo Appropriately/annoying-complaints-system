@@ -28,7 +28,7 @@ h1, h2, h3 {
 
 hr {
   border-color: var(--text-one);
-  margin: 50px 10px;
+  margin: 30px 10px;
 }
 
 button {
@@ -74,8 +74,8 @@ input, textarea, select {
 }
 
 .split {
-  min-height: 140px;
   width: 80%;
+  min-height: 140px;
   border-radius: 10px;
   margin: 20px auto;
   background: var(--accent);
@@ -91,17 +91,22 @@ input, textarea, select {
   color: var(--background)
 }
 
+.split textarea {
+  margin: 0 auto;
+}
+
 .brexit {
-  padding-top: 0 !important;
+  padding: 0 !important;
 }
 
 .brexit textarea {
-  width: 80%;
+  width: 100%;
   height: 100px;
 }
 
 #complaint {
-  width: 80%;
+  width: 97%;
+  margin: 0 auto;
   height: 200px;
 }
 

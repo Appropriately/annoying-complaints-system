@@ -1,11 +1,13 @@
 <h2>Prepare to submit</h2>
 <h4>Are these details correct?</h4>
 <hr>
-<p>Full name: {{ firstName }} {{ lastName }}</p>
-<p>Date of Birth: {{ dob | date:'longDate'}}</p>
-<hr>
-<p>Your complaint:</p>
-<p>{{ complaint }}</p>
+<div class="split">
+  <p>Full name: {{ firstName }} {{ lastName }}</p>
+  <p>Date of Birth: {{ dob | date:'longDate'}}</p>
+  <hr>
+  <p>Your complaint:</p>
+  <p>{{ complaint }}</p>
+</div>
 <br><br><br><br>
 <div class="navigation">
   <button ng-click="navigate('basic')">Back</button>

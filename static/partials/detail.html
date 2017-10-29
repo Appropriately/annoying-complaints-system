@@ -1,7 +1,7 @@
 <h2>Additional information</h2>
 <h4>To help us properly process your complaint, we just need some extra information!</h4>
 <hr>
-<form name="form2">
+<form name="form2" class="split">
   <p>What are your thoughts on Brexit?
       <select ng-model="brexit" ng-required="true" required>
         <option value="Good">Good</option>
@@ -23,7 +23,7 @@
   </div>
 
   <br>
-  <div class="navigation">
-    <button ng-click="form2.$valid && navigate('complaint')">Next</button>
-  </div>
 </form>
+<div class="navigation">
+  <button ng-click="form2.$valid && navigate('complaint')">Next</button>
+</div>

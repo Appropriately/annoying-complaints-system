@@ -1,12 +1,14 @@
 <h2>Basic information</h2>
 <h4>We just need some basic information from you</h4>
 <hr>
-<form name="form">
+
+<form name="form" class="split">
   <p>First Name: <input type="text" ng-model="$parent.firstName" ng-required="true" required></p>
   <p>Last Name: <input type="text" ng-model="$parent.lastName" ng-required="true" required></p>
   <p>Date of birth: <input type="date" ng-model="$parent.dob" ng-required="true" required></p>
   <br>
-  <div class="navigation">
-    <button ng-click="form.$valid && navigate('detail')">Next</button>
-  </div>
 </form>
+
+<div class="navigation">
+  <button ng-click="form.$valid && navigate('detail')">Next</button>
+</div>
