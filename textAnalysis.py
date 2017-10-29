@@ -42,8 +42,9 @@ def getAntonym(word):
                 return l.antonyms()[0].name()
     return word
 
-def correctSpelling(originalComplaint):
-    textBlob = TextBlob(originalComplaint)
+def correctSpelling(originalText):
+    textBlob = TextBlob(originalText)
+    return textBlob.correct()
 
 def makeUserProfile(firstname, surname):
     # return dictionary of user profiling summary
@@ -78,5 +79,5 @@ def makeUserProfile(firstname, surname):
     elif (wordChanges > 0):
         profile['Pessimist'] = "You're a pessimist. You gotta lighten up, think more about the good things. "
         profile['Liar'] = "We detected lies in your complaint, you should of probably grown out of that by now. "
-    
+
     return profile  #Need to change format of return

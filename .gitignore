@@ -2,5 +2,5 @@
 *__pycache__
 users.json
 complaints.json
-longboi/dist
-longboi/node_modules
+static/longboi/dist
+static/longboi/node_modules
