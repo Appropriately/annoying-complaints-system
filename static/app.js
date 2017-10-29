@@ -1,4 +1,4 @@
-  var app = angular.module('Complaints', []);
+var app = angular.module('Complaints', []);
 
   app.controller('MainCtrl', ['$scope', '$http', '$interval', function ($scope, $http, $interval) {
     // Refers to the html file that will be greeting the user
@@ -43,7 +43,9 @@
           surname: $scope.lastName
         }
       }).success(function (data) {
+        console.log(data);
         $scope.userProfile = data;
+        console.log($scope.userProfile);
       });
     }
   
@@ -120,3 +122,9 @@
       });
     };
   }])
+
+app.filter("trust", ['$sce', function ($sce) {
+  return function (htmlCode) {
+    return $sce.trustAsHtml(htmlCode);
+  }
+}]);
