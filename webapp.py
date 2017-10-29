@@ -1,10 +1,8 @@
 import random
-
 import sys
-
 import textAnalysis
-from flask import Flask, send_file, session, request, template_rendered, render_template
-from models import User, UserList, QueueList
+from flask import Flask, send_file, session, request, template_rendered, render_template, jsonify
+from models import User, UserList, QueueList, ComplaintList
 
 app = Flask(__name__)
 
@@ -15,10 +13,24 @@ def index():
 
 @app.route("/api/registerUser", methods=['POST'])
 def registerUser():
-    newUser = User(request.form['username'], request.form['password'], request.form['email'])
+    newUser = User(request.json['username'], request.json['password'], request.json['email'])
     userList = UserList()
     userList.addUser(newUser)
     return "User added"
+
+@app.route("/api/checkUsernameAvailable", methods=['POST'])
+def checkUsernameAvailable():
+    username = request.json['username']
+    userList = UserList()
+    if(username in userList.keys()):
+        return "not_available"
+    return "available"
+
+@app.route("/api/getUserDetails")
+def getUserDetails():
+    username = request.json['username']
+    userList = UserList()
+    return jsonify(userList[username])
 
 @app.route("/api/authenticateUser", methods=['POST'])
 def authenticateUser():
@@ -34,9 +46,27 @@ def authenticateUser():
 
 @app.route("/api/postComplaint", methods=['POST'])
 def postComplaint():
-    complaint = request.form['complaint']
+    complaint = request.json['complaint']
+    username = request.json['username']
     complaint = textAnalysis.makePositive(complaint)
+    complaintList = ComplaintList()
+    complaintList.addComplaint(username, complaint)
     return complaint
+
+@app.route("/api/getComplaints")
+def getComplaints():
+    complaintList = ComplaintList()
+    return jsonify(complaintList.complaintDict)
+
+@app.route("/api/getUserComplaints")
+def getUserComplaints():
+    username = request.json['username']
+    complaintList = ComplaintList()
+    usersComplaints = []
+    for key in complaintList.complaintDict.keys():
+        if(complaintList.complaintDict[key][1] == username):
+            usersComplaints.append(complaintList.complaintDict[key][0])
+    return jsonify(usersComplaints)
 
 @app.route("/api/addToQueue")
 def addToQueue():
@@ -61,6 +91,26 @@ def getQueuePosition():
 def leaveQueue():
     session.pop('QueueID', None)
     return "Left Queue"
+
+@app.route("/api/getChatResponse", methods=['POST'])
+def getChatResponse():
+    message = request.json['message']
+    message = message.upper()
+    if("CAPTCHA" in message):
+        return "Git good at long boi"
+    elif("BROKEN" in message):
+        return "This website is perfect the way it is"
+    elif("WHY" in message):
+        return "I do not know why anything, I am but a humble bot"
+    elif("NOT WORKING" in message):
+        return "Have you tried burning it to the ground and rebuilding from scratch"
+    elif("WHAT IS" in message):
+        return "Use the internet, dumbass"
+    elif("HOW" in message):
+        return "Do not question the workings of the universe"
+    else:
+        return "I have no fucking clue what you're on about"
+
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0')

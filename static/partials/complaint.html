@@ -1,10 +1,10 @@
 <h2>Complaint</h2>
 <h4>Please type your complaint into the box provided</h4>
 <hr>
-<form name="form3">
+<form name="form3" class="split">
   <textarea id="complaint" type="text" ng-model="$parent.complaint" ng-required="true"></textarea>
   <br>
-  <div class="navigation">
-    <button ng-click="form3.$valid && navigate('check')">Next</button>
-  </div>
 </form>
+<div class="navigation">
+  <button ng-click="form3.$valid && navigate('check')">Next</button>
+</div>

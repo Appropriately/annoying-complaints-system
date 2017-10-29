@@ -1,0 +1,18 @@
+<h2>Create an account</h2>
+<h4>We need you to create an account so we can help you manage your complaint.</h4>
+<hr>
+<form name="account" class="split">
+  <p>Username:
+    <input type="text" ng-model="username" ng-required="true" required>
+  </p>
+  <p>Password:
+    <input type="password" ng-model="password" ng-required="true" required>
+  </p>
+  <p>Email Address:
+    <input type="email" ng-model="email" ng-required="true" required>
+  </p>
+  <br>
+</form>
+<div class="navigation">
+  <button ng-click="account.$valid && accountCreate(username,password,email)">Create account</button>
+</div>

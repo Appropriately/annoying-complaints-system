@@ -1,12 +1,29 @@
 <h2>Additional information</h2>
-<h4>To help us properly process your complaint, </h4>
+<h4>To help us properly process your complaint, we just need some extra information!</h4>
 <hr>
-<form name="form2">
-  <p>Last Name:
-    <input type="date" ng-model="$parent.dob" ng-required="true" required>
+<form name="form2" class="split">
+  <p>What are your thoughts on Brexit?
+      <select ng-model="brexit" ng-required="true" required>
+        <option value="Good">Good</option>
+        <option value="Bad">Bad</option>
+        <option value="Other">I don't see why this is relevant?</option>
+      </select>
   </p>
-  <br>
-  <div class="navigation">
-    <button ng-click="form2.$valid && navigate('complaint')">Next</button>
+  <div class="brexit" ng-show="brexit == 'Good'">
+    <p>Why do you think that?</p>
+    <textarea type="text" ng-required="true" required></textarea>
   </div>
+  <div class="brexit" ng-show="brexit == 'Bad'">
+    <p>What makes you say that?</p>
+    <textarea type="text" ng-required="true" required></textarea>
+  </div>
+  <div class="brexit" ng-show="brexit == 'Other'">
+    <p>It <i>CLEARLY</i> is, so what is your opinion on the matter?</p>
+    <textarea type="text" ng-required="true" required></textarea>
+  </div>
+
+  <br>
 </form>
+<div class="navigation">
+  <button ng-click="form2.$valid && navigate('complaint')">Next</button>
+</div>
