@@ -74,7 +74,7 @@ def postEvaluation():
     surname = request.json['surname']
     textAnalysis.makePositive(complaint)
     evaluation = textAnalysis.makeUserProfile(firstname, surname)
-    return evaluation
+    return render_template("profile.html", profile=evaluation)
 
 @app.route("/api/getComplaints")
 def getComplaints():
