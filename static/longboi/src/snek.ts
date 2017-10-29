@@ -1,5 +1,8 @@
 import { Board } from "./board"
 
+declare var angular: any;
+const nextPage = "finished"
+
 enum Direction { North, East, South, West }
 
 export class Snek {
@@ -156,6 +159,15 @@ export class Snek {
                 if (this.noms >= 5) {
                     this.won = true
                     this.isPlaying = false
+
+                    try {
+                        let scope = angular.element(document.getElementsByTagName("body")).scope()
+                        scope.$apply(function () {
+                            scope.currentView = nextPage
+                        })
+                    } catch (error) {
+                        // Ignore the error, this is a hack after all
+                    }
                 }
 
                 board.placeFood()
