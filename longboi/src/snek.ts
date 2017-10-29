@@ -31,6 +31,7 @@ export class Snek {
         board.clear()
         this.died = false
         this.won = false
+        this.noms = 0
         this.positions = new Array(this.initialLength)
         for (let i = 0; i < this.initialLength; ++i) {
             let x = this.initialX - i
@@ -152,8 +153,9 @@ export class Snek {
                 ++this.noms
 
                 // Test if the player has won
-                if (this.noms == 5) {
+                if (this.noms >= 5) {
                     this.won = true
+                    this.isPlaying = false
                 }
 
                 board.placeFood()
