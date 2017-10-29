@@ -23,7 +23,7 @@
           complaint: $scope.complaint
         }
       }).success(function (data) {
-        $scope.navigate('finished');
+        $scope.navigate('longboi');
       });
     }; // postComplaint
 
