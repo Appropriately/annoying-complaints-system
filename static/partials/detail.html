@@ -1,7 +1,17 @@
 <h2>Additional information</h2>
 <h4>To help us properly process your complaint, we just need some extra information!</h4>
 <hr>
-<form name="form2" class="split">
+<form name="form2" class="split" id="extradetail">
+  <p>Gender and Ethnicity information</p>
+  <div class="flexContainer">
+    <div style="width:30%">
+      <p>Gender: <input type="text" id="gen" ng-required="true" required readonly></p>
+      <p>Ethnicity: <input type="text" id="eth" ng-required="true" required readonly></p>
+    </div>
+    <div style="width:30%; padding: 20px">
+      <button type="button" id="random">Randomize!</button>
+    </div>
+  </div>
   <p>What are your thoughts on Brexit?
       <select ng-model="brexit" ng-required="true" required>
         <option value="Good">Good</option>
@@ -27,3 +37,13 @@
 <div class="navigation">
   <button ng-click="form2.$valid && navigate('complaint')">Next</button>
 </div>
+<script>
+  var genders = ["Male", "Female", "Other"];
+
+    $(document).ready(function () {
+      $("#random").on("click", function () {
+        console.log("Randomize information.");
+        $("#gen").value = genders[Math.floor(Math.random() * genders.length)];
+      });
+    });
+</script>
