@@ -7,7 +7,8 @@
     // Set up some scope variables for later use
     $scope.firstName = ""; $scope.lastName = "";
     $scope.dob = ""; $scope.complaint = "";
-    $scope.username = "";
+    $scope.username = ""; $scope.original = "";
+    $scope.userProfile = "";
 
     $scope.usernameTaken = false;
 
@@ -26,10 +27,25 @@
           complaint: $scope.complaint,
         }
       }).success(function (data) {
+        $scope.original = $scope.complaint;
         $scope.complaint = data;
         $scope.navigate('check');
       });
     } // adjustComplaint
+
+    $scope.getProfile = function() {
+      $http({
+        method: "POST",
+        url: "/api/postEvaluation",
+        data: {
+          complaint: $scope.original,
+          firstname: $scope.firstName,
+          surname: $scope.lastName
+        }
+      }).success(function (data) {
+        $scope.userProfile = data;
+      });
+    }
   
     $scope.postComplaint = function() {
       $http({
@@ -41,6 +57,7 @@
         }
       }).success(function (data) {
         console.log(data);
+        $scope.getProfile();
         $scope.navigate('longboi');
       });
     }; // postComplaint
