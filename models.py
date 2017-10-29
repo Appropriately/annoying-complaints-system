@@ -1,7 +1,27 @@
 import random
 import json
 
+class ComplaintList:
+
+    def __init__(self):
+        try:
+            file = open("complaints.json", "r")
+            self.complaintDict = json.load(file)
+            file.close()
+        except:
+            self.complaintDict = {}
+
+
+    def addComplaint(self, username, complaint):
+        complaintID = random.randint(10000000, 99999999)
+        self.complaintDict[complaintID] = [complaint, username]
+        file = open("complaints.json", "w+")
+        json.dump(self.complaintDict, file)
+        file.close()
+
+
 class QueueList:
+
     def __init__(self):
         try:
             file = open("queue.json", "r")
@@ -34,6 +54,7 @@ class QueueList:
             return self.queueDict[queueID]
         return -1
 
+
 class UserList:
 
     def __init__(self):
@@ -45,17 +66,22 @@ class UserList:
             self.userList = {}
 
     def authenticateUser(self, username, password):
-        for key in self.userList.keys():
-            if(self.userList[key]['username'] == username):
-                if(self.userList[key]['password'] == password):
-                    return True
+        if(username in self.userList.keys()):
+            if(password == self.userList[username]['password']):
+                return True
         return False
 
     def addUser(self, user):
-        self.userList[user.userID] = user.__dict__
+        self.userList[user.username] = user.__dict__
         file = open("users.json", "w+")
         json.dump(self.userList, file)
         file.close()
+
+    def getUserDetails(self, username):
+        if(username in self.userList.keys()):
+            return self.userList[username]
+        return None
+
 
 class User:
 
@@ -63,4 +89,3 @@ class User:
         self.username = username
         self.password = password
         self.email = email
-        self.userID = random.randint(10000000, 99999999)
