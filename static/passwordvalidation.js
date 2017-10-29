@@ -6,9 +6,7 @@
 function checkPassword() {
   pword = $("#pword").val();
 
-  if(pword.length == 0) {
-    generatePWrdSuggestions();
-  } else if(pword.length < 15){
+  if(pword.length < 15){
     errorMsg = "Password must be at least 15 characters long.";
     document.getElementById("pwordErrorMsg").innerHTML = errorMsg;
   }
@@ -47,8 +45,6 @@ function checkPassword() {
   if (!(pword.search(re3Num) > -1)){
     errorMsg = "Password must contain at least 3 numbers.";
     document.getElementById("pwordErrorMsg").innerHTML = errorMsg;
-  } else {
-    document.getElementById("pwordErrorMsg").innerHTML = "";
   }
 }
 
@@ -72,6 +68,6 @@ function generatePWrdSuggestions() {
     pwrdSuggestions = "suggestions: " + generatedPWrd[0] + ", " + generatedPWrd[1] + ", " + generatedPWrd[2] + ".";
   
     // Change so correct HTML element has password suggestions loaded in it
-    document.getElementById("pwordErrorMsg").innerHTML = pwrdSuggestions
+    document.getElementById("pwordSuggest").innerHTML = pwrdSuggestions
   
   }
