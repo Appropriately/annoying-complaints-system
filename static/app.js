@@ -13,7 +13,7 @@ var app = angular.module('Complaints', []);
     $scope.usernameTaken = false;
 
     // Used for a generic message
-    $scope.companyName = "FuckYouInc"
+    $scope.companyName = "GenericCompanyName"
     
     $scope.navigate = function(page) {
       $scope.currentView = page;
